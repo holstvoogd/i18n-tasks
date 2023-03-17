@@ -37,11 +37,11 @@ module I18n::Tasks::Translators
     def options_for_translate_values(**options)
       extra_options = @i18n_tasks.translation_config[:deepl_options]&.symbolize_keys || {}
 
-      extra_options.merge({ ignore_tags: %w[i18n] }).merge(options)
+      extra_options.merge({ tag_handling: 'xml', ignore_tags: %w[i18n] }).merge(options)
     end
 
     def options_for_html
-      { tag_handling: 'xml' }
+      { }
     end
 
     def options_for_plain
