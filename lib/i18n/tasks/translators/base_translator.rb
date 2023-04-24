@@ -93,7 +93,7 @@ module I18n::Tasks
         end
       end
 
-      INTERPOLATION_KEY_RE = /%\{[^}]+}/.freeze
+      INTERPOLATION_KEY_RE = /%\{[^\}]+\}|\{\{.*\}\}|\{%.*%\}/.freeze
       UNTRANSLATABLE_STRING = 'X__'
 
       # @param [String] value

@@ -6,14 +6,20 @@ require 'deepl'
 
 RSpec.describe 'DeepL Translation' do
   nil_value_test = ['nil-value-key', nil, nil]
-  text_test      = ['key', "Hello, %{user} O'Neill! How are you?", "¡Hola, %{user} O'Neill! ¿Cómo estás?"]
-  html_test_plrl = ['html-key.html.one', '<span>Hello %{count}</span>', '<span>Hola %{count}</span>']
+
+  text_test = [
+    'key', 
+    "Hello, %{user} O'Neill! How are you? {{ Check out this Liquid tag, it should not be translated }} {% That applies to this Liquid tag as well %}",
+    "¡Hola, %{user} O'Neill! ¿Qué tal estás? {{ Check out this Liquid tag, it should not be translated }} {% That applies to this Liquid tag as well %}"
+  ]
+
+  html_test_plrl = ['html-key.html.one', '<span>Hello %{count} {{ count }} {% count %}</span>', '<span>Hola %{count} {{ count }} {% count %}</span>']
   array_test     = ['array-key', ['Hello.', nil, '', 'Goodbye.'], ['Hola.', nil, '', 'Adiós.']]
   fixnum_test    = ['numeric-key', 1, 1]
   ref_key_test   = ['ref-key', :reference, :reference]
   # this test fails atm due to moving of the bold tag =>  "Hola, <b>%{user} </b> gran O'neill ❤︎ "
   # it could be a bug, but the api also allows to ignore certain tags and there is the new html-markup version which could be used to
-  html_test      = ['html-key.html', "Hello, <b>%{user} big O'neill</b> ❤︎", "Hola, <b>%{user} gran O'neill</b> ❤︎ "]
+  html_test      = ['html-key.html', "Hello, <b>%{user} big O'neill</b> ❤︎", "Hola, <b>%{user} gran O'neill</b> ❤︎"]
 
   describe 'real world test' do
     delegate :i18n_task, :in_test_app_dir, :run_cmd, to: :TestCodebase
